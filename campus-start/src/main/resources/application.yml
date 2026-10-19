@@ -1,0 +1,117 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: campus-server
+  profiles:
+    active: dev # 默认环境
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/campus_db?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# 自定义配置
+app:
+  config:
+    "jwt-secret": 'my_super_secret_key_for_jwt_token_generation_and_validation_please_change_it_in_production'
+    "jwt-expiration": 86400000 # 毫秒
+    
+# 👇 把这块加上
+wx:
+  miniapp:
+    # 替换为你真实的小程序 AppID (在微信公众平台 -> 开发设置里找)
+    app-id: 'wx827b6c7c3dcfe8b1' 
+    # 替换为你真实的小程序 AppSecret
+    app-secret: 'cb08164eac4a8cc9ab56ad231d3ea343'
+
+
+# 日志
+logging:
+  level:
+    "com.campus": debug
+    "org.springframework": info
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# MyBatis-Plus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      # table-prefix 已移除，各实体通过 @TableName 显式指定表名
+
+# SpringDoc / Swagger
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+
+---
+
+# 开发环境 dev
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/campus_db_dev?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+
+---
+
+# 测试环境 test
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:mysql://test-db-host:3306/campus_db_test?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B8
+    username: test_user
+    password: test_password
+
+---
+
+# 生产环境 prod
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mysql://prod-mysql-host:3306/campus_db_prod?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B8
+    username: ${DB_USERNAME_PROD}
+    password: ${DB_PASSWORD_PROD}
+logging:
+  level:
+    com.campus: warn
+    org.springframework: warn
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+mybatis-plus:
+  configuration:
+    log-impl: '' # 不打印SQL
+
+
