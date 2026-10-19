@@ -9,8 +9,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/campus_db?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B8
-    username: root
-    password: 123456
+    #替换为你真实的数据库账号和密码
+    username: ******
+    password: *******
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -29,9 +30,9 @@ app:
 wx:
   miniapp:
     # 替换为你真实的小程序 AppID (在微信公众平台 -> 开发设置里找)
-    app-id: 'wx827b6c7c3dcfe8b1' 
+    app-id: '***********' 
     # 替换为你真实的小程序 AppSecret
-    app-secret: 'cb08164eac4a8cc9ab56ad231d3ea343'
+    app-secret: '*******************'
 
 
 # 日志
@@ -73,8 +74,9 @@ spring:
       on-profile: dev
   datasource:
     url: jdbc:mysql://localhost:3306/campus_db_dev?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=GMT%2B8
-    username: root
-    password: 123456
+    #替换为你真实的数据库账号和密码
+    username: *****
+    password: ******
 
 ---
 
