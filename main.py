@@ -49,7 +49,7 @@ memory_saver = SqliteSaver(conn)
 memory_saver.setup()
 
 llm = ChatOpenAI(
-    api_key="sk-d8dc9e88d889418295cad141a4a2fd89",      
+    api_key="*********",      
     base_url="https://api.deepseek.com", 
     model="deepseek-chat",               
     temperature=0.1                      
